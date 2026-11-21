@@ -31,8 +31,8 @@ class BoardGame
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $minAge = null;
 
-    #[ORM\ManyToOne(inversedBy: 'boardGames')]
-    private ?Copy $copy = null;
+    #[ORM\Column(type: Types::SMALLINT)]
+    private ?int $copyNumber = null;
 
     #[ORM\ManyToOne(inversedBy: 'boardGames')]
     private ?Category $category = null;
@@ -113,14 +113,14 @@ class BoardGame
         return $this;
     }
 
-    public function getCopy(): ?Copy
+    public function getCopyNumber(): ?int
     {
-        return $this->copy;
+        return $this->copyNumber;
     }
 
-    public function setCopy(?Copy $copy): static
+    public function setCopyNumber(int $copyNumber): static
     {
-        $this->copy = $copy;
+        $this->copyNumber = $copyNumber;
 
         return $this;
     }

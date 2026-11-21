@@ -20,10 +20,10 @@ class User
     private ?UserType $userType = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $userFirstName = null;
+    private ?string $userLastName = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $userLastName = null;
+    private ?string $userFirstName = null;
 
     #[ORM\Column(length: 100)]
     private ?string $userEmail = null;
@@ -59,18 +59,6 @@ class User
         return $this;
     }
 
-    public function getUserFirstName(): ?string
-    {
-        return $this->userFirstName;
-    }
-
-    public function setUserFirstName(string $userFirstName): static
-    {
-        $this->userFirstName = $userFirstName;
-
-        return $this;
-    }
-
     public function getUserLastName(): ?string
     {
         return $this->userLastName;
@@ -79,6 +67,18 @@ class User
     public function setUserLastName(string $userLastName): static
     {
         $this->userLastName = $userLastName;
+
+        return $this;
+    }
+
+    public function getUserFirstName(): ?string
+    {
+        return $this->userFirstName;
+    }
+
+    public function setUserFirstName(string $userFirstName): static
+    {
+        $this->userFirstName = $userFirstName;
 
         return $this;
     }

@@ -16,10 +16,10 @@ class PartyGame
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, nullable: true)]
+    #[ORM\Column(length: 50)]
     private ?string $partyGameName = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[ORM\Column(type: Types::TEXT)]
     private ?string $partyGameDescription = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
@@ -49,7 +49,7 @@ class PartyGame
         return $this->partyGameName;
     }
 
-    public function setPartyGameName(?string $partyGameName): static
+    public function setPartyGameName(string $partyGameName): static
     {
         $this->partyGameName = $partyGameName;
 
@@ -61,7 +61,7 @@ class PartyGame
         return $this->partyGameDescription;
     }
 
-    public function setPartyGameDescription(?string $partyGameDescription): static
+    public function setPartyGameDescription(string $partyGameDescription): static
     {
         $this->partyGameDescription = $partyGameDescription;
 
