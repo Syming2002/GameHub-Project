@@ -2,22 +2,25 @@
 
 namespace App\Entity;
 
-use App\Enum\UserType;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Override;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(enumType: UserType::class)]
-    private ?UserType $userType = null;
+    #[ORM\Column(type: Types::JSON)]
+    private ?array $userRoles = [];
 
     #[ORM\Column(length: 50)]
     private ?string $userLastName = null;
@@ -42,19 +45,35 @@ class User
         $this->bookings = new ArrayCollection();
     }
 
+    #[Override]
+    public function getUserIdentifier(): string
+    {
+        return $this->userEmail;
+    }
+
+    #[Override]
+    public function getPassword(): ?string
+    {
+        return $this->userPassword;
+    }
+
+    #[Override]
+    public function getRoles(): array
+    {
+        $roles = $this->userRoles;
+        // garantir que chaque utilisateur sera minimum user
+        $roles[] = 'ROLE_USER';
+        return array_unique($roles);
+    }
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getUserType(): ?UserType
+    public function setUserType(array $userRoles): static
     {
-        return $this->userType;
-    }
-
-    public function setUserType(UserType $userType): static
-    {
-        $this->userType = $userType;
+        $this->userRoles = $userRoles;
 
         return $this;
     }

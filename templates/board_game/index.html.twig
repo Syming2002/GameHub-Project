@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}All Board Games{% endblock %}
+
+{% block stylesheets %}
+
+    <style>
+        .boardgame-list {
+            display: flex;
+            gap: calc(35px - 15px);
+        }
+    </style>
+
+{% endblock %}
+
+{% block body %}
+
+    <h1>Board Games</h1>
+    {% if boardGames is empty %}
+        <p>No board games found</p>
+    {% else %}
+        <ul class="boardgame-list">
+            {% for boardGame in boardGames %}
+                <li>{{ boardGame.title }}</li>
+                <form action="{{ path("boardGame_modify", {"id": boardGame.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token("modify" ~ boardGame.id) }}">
+                    <button type="submit">Modify BoardGame</button>
+                </form>
+                <form method="POST" action="{{ path("boardGame_delete", {"id": boardGame.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token("delete" ~ boardGame.id) }}">
+                    <button type="submit">Delete BoardGame</button>
+                </form>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
