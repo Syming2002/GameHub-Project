@@ -29,6 +29,11 @@ class Category
         $this->boardGames = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return $this->categoryName;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

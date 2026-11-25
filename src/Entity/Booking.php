@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Enum\BookingStatus;
 use App\Repository\BookingRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -14,7 +15,7 @@ class Booking
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?\DateTime $bookingDate = null;
+    private ?\DateTimeImmutable $bookingDate = null;
 
     #[ORM\ManyToOne(inversedBy: 'booking')]
     private ?PartyGame $partyGame = null;
@@ -22,17 +23,20 @@ class Booking
     #[ORM\ManyToOne(inversedBy: 'bookings')]
     private ?User $user = null;
 
+    #[ORM\Column(enumType: BookingStatus::class)]
+    private ?BookingStatus $status = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getBookingDate(): ?\DateTime
+    public function getBookingDate(): ?\DateTimeImmutable
     {
         return $this->bookingDate;
     }
 
-    public function setBookingDate(\DateTime $bookingDate): static
+    public function setBookingDate(\DateTimeImmutable $bookingDate): static
     {
         $this->bookingDate = $bookingDate;
 
@@ -59,6 +63,18 @@ class Booking
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getStatus(): ?BookingStatus
+    {
+        return $this->status;
+    }
+
+    public function setStatus(BookingStatus $status): static
+    {
+        $this->status = $status;
 
         return $this;
     }

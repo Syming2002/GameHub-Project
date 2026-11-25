@@ -22,8 +22,8 @@ class PartyGame
     #[ORM\Column(type: Types::TEXT)]
     private ?string $partyGameDescription = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
-    private ?int $availableSpace = null;
+    // #[ORM\Column(type: Types::SMALLINT)]
+    // private ?int $availableSpace = null;
 
     #[ORM\ManyToOne(inversedBy: 'partyGame')]
     private ?BoardGame $boardGame = null;
@@ -68,17 +68,17 @@ class PartyGame
         return $this;
     }
 
-    public function getAvailableSpace(): ?int
-    {
-        return $this->availableSpace;
-    }
+    // public function getAvailableSpace(): ?int
+    // {
+    //     return $this->availableSpace;
+    // }
 
-    public function setAvailableSpace(int $availableSpace): static
-    {
-        $this->availableSpace = $availableSpace;
+    // public function setAvailableSpace(int $availableSpace): static
+    // {
+    //     $this->availableSpace = $availableSpace;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getBoardGame(): ?BoardGame
     {

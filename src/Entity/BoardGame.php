@@ -43,9 +43,17 @@ class BoardGame
     #[ORM\OneToMany(targetEntity: PartyGame::class, mappedBy: 'boardGame')]
     private Collection $partyGame;
 
+    #[ORM\Column(type: Types::SMALLINT)]
+    private ?int $maxPlayer = null;
+
     public function __construct()
     {
         $this->partyGame = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 
     public function getId(): ?int
@@ -163,6 +171,18 @@ class BoardGame
                 $partyGame->setBoardGame(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMaxPlayer(): ?int
+    {
+        return $this->maxPlayer;
+    }
+
+    public function setMaxPlayer(int $maxPlayer): static
+    {
+        $this->maxPlayer = $maxPlayer;
 
         return $this;
     }

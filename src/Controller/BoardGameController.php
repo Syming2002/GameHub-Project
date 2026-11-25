@@ -23,7 +23,7 @@ final class BoardGameController extends AbstractController
         ]);
     }
 
-    #[Route('/board-game/{id}/modify', name: 'boardGame_modify', requirements: ["id" => "\d+"], methods:['POST', 'GET'])]
+    #[Route('/board-game/{id}/modify', name: 'board_game_modify', requirements: ["id" => "\d+"], methods:['POST', 'GET'])]
     public function modifyBoardGame(int $id, Request $request, EntityManagerInterface $em, BoardGameRepository $boardGameRepository): Response
     {
         $boardGame = $boardGameRepository->find($id);
@@ -49,8 +49,8 @@ final class BoardGameController extends AbstractController
         ]);
     }
 
-    #[Route('/board-game/{id}/supprimer', name: 'boardGame_delete', requirements: ["id" => "\d+"], methods:['POST'])]
-    public function supprimerOeuvre(int $id, Request $request, EntityManagerInterface $em, BoardGameRepository $oeuvreRepository): Response
+    #[Route('/board-game/{id}/delete', name: 'board_game_delete', requirements: ["id" => "\d+"], methods:['POST'])]
+    public function deleteBoardGame(int $id, Request $request, EntityManagerInterface $em, BoardGameRepository $oeuvreRepository): Response
     {
         $boardGame = $oeuvreRepository->find($id);
 

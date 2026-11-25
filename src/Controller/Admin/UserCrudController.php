@@ -4,8 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class UserCrudController extends AbstractCrudController
@@ -20,11 +20,10 @@ class UserCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextField::new('userType', 'User Type'),
+            ArrayField::new('getRoles', "User Roles"),
             TextField::new('userLastName'),
             TextField::new('userFirstName'),
-            TextField::new('userEmail'),
-            TextField::new('userPassword')
+            TextField::new('userEmail')
         ];
     }
     
