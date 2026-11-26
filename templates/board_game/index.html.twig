@@ -29,19 +29,6 @@
         <ul class="boardgame-list">
             {% for boardGame in boardGames %}
                 <li>{{ boardGame.title }}</li>
-                {# <form action="{{ path("boardGame_modify", {"id": boardGame.id}) }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token("modify" ~ boardGame.id) }}">
-                    <button type="submit">Modify BoardGame</button>
-                </form>
-                <form method="POST" action="{{ path("boardGame_delete", {"id": boardGame.id}) }}">
-                    <input type="hidden" name="_token" value="{{ csrf_token("delete" ~ boardGame.id) }}">
-                    <button type="submit">Delete BoardGame</button>
-                </form> #}
-                <form action="{{ path("app_booking", {'id': boardGame.id}) }}" method="POST">
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('book_' ~ boardGame.id) }}">
-                    <button type="submit">Book</button>
-                    
-                </form>
             {% endfor %}
         </ul>
     {% endif %}

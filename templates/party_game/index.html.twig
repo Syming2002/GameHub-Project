@@ -3,18 +3,26 @@
 {% block title %}Hello PartyGameController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Party Games Available</h1>
+    {% for message in app.flashes('error') %}
+        <p class="alert alert-danger">{{ message }}</p>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <p class="alert alert-success">{{ message }}</p>
+    {% endfor %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/simon/Desktop/Developement/Cours Back-end/Symfony/Projet-GameHub/src/Controller/PartyGameController.php</code></li>
-        <li>Your template at <code>C:/Users/simon/Desktop/Developement/Cours Back-end/Symfony/Projet-GameHub/templates/party_game/index.html.twig</code></li>
-    </ul>
-</div>
+    {% if partyGames is empty %}
+        <p>No board games found</p>
+    {% else %}
+        <ul class="party-game-list">
+            {% for partyGame in partyGames %}
+                <li>{{ partyGame.partyGameName }}</li>
+                <form action="{{ path("app_booking", {'id': partyGame.id}) }}" method="POST">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('book_' ~ partyGame.id) }}">
+                    <button type="submit">Book</button>
+                    
+                </form>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}

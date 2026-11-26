@@ -12,8 +12,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class BoardGameController extends AbstractController
 {
-    #[Route('/board-game', name: 'app_board_game')]
-    public function getAllBoardGames(BoardGameRepository $boardGameRepository): Response
+    #[Route('/board_game', name: 'app_board_game')]
+    public function showBoardGame(BoardGameRepository $boardGameRepository): Response
     {
         // get all the board games
         $boardGames = $boardGameRepository->findAll();

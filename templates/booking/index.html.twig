@@ -18,13 +18,33 @@
 
     <div class="example-wrapper">
         <h1>Welcome on your booking page ! ✅</h1>
+        {% for message in app.flashes('error') %}
+            <p class="alert alert-danger">{{ message }}</p>
+        {% endfor %}
+        {% for message in app.flashes('success') %}
+            <p class="alert alert-success">{{ message }}</p>
+        {% endfor %}
         {% if bookings is empty %}
             <p>No booking yet</p>
+            <a href="{{ path("app_party_game") }}">See Party Game List</a>
         {% else %}
             <ul>
                 {% for booking in bookings %}
                     <li>{{ booking.partyGame.partyGameName }}</li>
                     <li>{{ booking.bookingDate|date('d-m-Y H:i') }}</li>
+                    <li>Status: {{ booking.status.value }}</li>
+                    {% if booking.status.value == "Booked" %}
+                        <form action="{{ path("app_booking_cancel", {'id': booking.id}) }}" method="POST">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('cancel_' ~ booking.id) }}">
+                            <button type="submit">Cancel</button>
+                        </form>
+                    {% endif %}
+                    {% if booking.status.value == "Canceled" %}
+                        <form action="{{ path("app_booking_delete", {'id': booking.id}) }}" method="POST">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('delete_' ~ booking.id) }}">
+                            <button type="submit">Delete</button>
+                        </form>
+                    {% endif %}
                 {% endfor %}
             </ul>
         {% endif %}
