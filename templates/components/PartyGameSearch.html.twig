@@ -1,0 +1,8 @@
+<div{{ attributes }}>
+    <input type="text" data-model="partyGameName" placeholder="Search a Party Game...">
+    {% for partygame in this.partygames %}
+        {{ component("PartyGameSearch") }}
+    {% else %}
+        <p>No party game found.</p>
+    {% endfor %}
+</div>

@@ -16,6 +16,19 @@ class PartyGameRepository extends ServiceEntityRepository
         parent::__construct($registry, PartyGame::class);
     }
 
+    /**
+     * Search the party games by name.
+     *
+     * @return PartyGame[] Returns an array of Oeuvre objects
+     */
+    public function searchByTitle(string $partyGameName): array {
+        return $this->createQueryBuilder('pg')
+            ->andWhere("pg.partyGameName LIKE :partyGameName")
+            ->setParameter("partyGameName", '%' . $partyGameName . '%')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return PartyGame[] Returns an array of PartyGame objects
 //     */
